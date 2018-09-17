@@ -1,0 +1,135 @@
+sudo gedit /etc/hosts
+192.168.56.11 hadoopmnmaster
+192.168.56.12 hadoopmnslave1
+192.168.56.13 hadoopmnslave2
+192.168.56.14 hadoopmnslave3
+
+
+sudo gedit /etc/hostname
+
+hadoopmnmaster
+cd /usr/local/hadoop/etc/hadoop
+-----------------------------------------------------------
+sudo gedit core-site.xml
+
+replace localhost as hadoopmnmaster
+
+
+
+sudo gedit hdfs-site.xml
+
+remove this part
+<property>
+<name>dfs.namenode.name.dir</name>
+<value>file:/usr/local/hadoop/hadoop_data/hdfs/namenode</value>
+</property>
+and replace 1 with 3
+
+
+
+
+sudo gedit yarn-site.xml
+
+<property>
+<name>yarn.resourcemanager.resource-tracker.address</name>
+<value>hadoopmnmaster:8025</value>
+</property>
+<property>
+<name>yarn.resourcemanager.scheduler.address</name>
+<value>hadoopmnmaster:8030</value>
+</property>
+<property>
+<name>yarn.resourcemanager.address</name>
+<value>hadoopmnmaster:8050</value>
+</property>
+
+
+
+
+
+
+
+
+sudo rm -rf /usr/local/hadoop/hadoop_data
+
+sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/datanode
+
+
+sudo chown -R ali:ali /usr/local/hadoop
+
+
+
+now shutdown the ubuntu
+and get a clone and create a slave
+
+
+
+master nood
+
+sudo gedit /usr/local/hadoop/etc/hadoop/masters
+
+hadoopmnmaster
+
+sudo gedit /usr/local/hadoop/etc/hadoop/slaves
+
+remove localhost and add 
+
+hadoopmnslave1
+hadoopmnslave2
+hadoopmnslave3
+
+
+
+sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+
+change
+
+<property>
+<name>dfs.datanode.data.dir</name>
+<value>file:/usr/local/hadoop/hadoop_store/hdfs/datanode</value>
+</property>
+
+to
+
+<property>
+<name>dfs.namenode.name.dir</name>
+<value>file:/usr/local/hadoop/hadoop_store/hdfs/namenode</value>
+</property>
+
+
+
+          $ sudo rm -rf /usr/local/hadoop/hadoop_data
+
+          $ sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
+
+          $ sudo chown -R chaal:chaal /usr/local/hadoop
+
+          $ hadoop namenode -format
+
+          $ start-all.sh
+
+jps
+
+
+
+
+at the end edit  gedit /etc/hostname 
+hostnames are 
+ hadoopmnslave1
+ hadoopmnslave2
+ hadoopmnslave3
+
+
+ of 3 slaves master = 11 slave1=12 ...
+sudo gedit /etc/network/interfaces
+
+add this lines
+
+auto eth0
+iface eth0 inet static
+address 192.168.56.11
+netmask 255.255.255.0
+auto eth1
+iface eth1 inet dhcp
+
+
