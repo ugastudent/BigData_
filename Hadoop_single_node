@@ -1,6 +1,6 @@
 
-In this part we want to install virtualbox-guest-additions 
-virtualbox-guest-additions allows you Full screen mode in Virtual box
+#In this part we want to install virtualbox-guest-additions 
+#virtualbox-guest-additions allows you Full screen mode in Virtual box
 
 -----------------------------------------------------------------------------------
 sudo apt-get install virtualbox-guest-additions-iso
@@ -10,11 +10,13 @@ sudo apt-get install build-essential linux-headers-$(uname -r)
 
 sudo apt-get install virtualbox-ose-guest-x11
 -----------------------------------------------------------------------------------
-or
+# or
 
 sudo apt-get install virtualbox-guest-x11
 
 -----------------------------------------------------------------------------------
+# Changing to static IP Address on Ubuntu Desktop
+
 sudo gedit /etc/network/interfaces
 
 
@@ -22,15 +24,11 @@ sudo gedit /etc/network/interfaces
 
 
 auto eth0
-
 iface eth0 inet static
-
-address 192.168.56.10
-
-netmask 255.255.255.0
+    address 192.168.56.10
+    netmask 255.255.255.0
 
 auto eth1
-
 iface eth1 inet dhcp
 
 
@@ -81,6 +79,8 @@ sudo gedit ~/.bashrc
           export YARN_HOME=$HADOOP_HOME
           export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
           export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib"
+          
+          
 
 source ~/.bashrc
 -----------------------------------------------------------------
