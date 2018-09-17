@@ -1,15 +1,20 @@
+
+In this part we want to install virtualbox-guest-additions 
+virtualbox-guest-additions allows you Full screen mode in Virtual box
+
+-----------------------------------------------------------------------------------
 sudo apt-get install virtualbox-guest-additions-iso
 sudo apt-get update
 
 sudo apt-get install build-essential linux-headers-$(uname -r)
 
 sudo apt-get install virtualbox-ose-guest-x11
-
+-----------------------------------------------------------------------------------
 or
 
 sudo apt-get install virtualbox-guest-x11
 
-
+-----------------------------------------------------------------------------------
 sudo gedit /etc/network/interfaces
 
 
