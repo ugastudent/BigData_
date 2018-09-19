@@ -1,21 +1,27 @@
+
+
+#Create a slvae node.
+
+
 sudo gedit /etc/hosts
+
 192.168.56.10 hadoopmnmaster
 192.168.56.11 hadoopmnslave1
 192.168.56.12 hadoopmnslave2
 
 
 
-sudo gedit /etc/hostname
 
-hadoopmnmaster
+
+
 cd /usr/local/hadoop/etc/hadoop
------------------------------------------------------------
+--------------------------------------------------------
 sudo gedit core-site.xml
 
 replace localhost as hadoopmnmaster
 
 
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 sudo gedit hdfs-site.xml
 
 remove this part
@@ -23,29 +29,30 @@ remove this part
 <name>dfs.namenode.name.dir</name>
 <value>file:/usr/local/hadoop/hadoop_data/hdfs/namenode</value>
 </property>
+
 and replace 1 with 3
 
 
 
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 sudo gedit yarn-site.xml
 
-# add these  lines to configuration section
+# add these lines to configuration section
 
 <property>
-          <name>yarn.resourcemanager.resource-tracker.address</name>
-          <value>hadoopmnmaster:8025</value>
+<name>yarn.resourcemanager.resource-tracker.address</name>
+<value>hadoopmnmaster:8025</value>
 </property>
 <property>
-          <name>yarn.resourcemanager.scheduler.address</name>
-          <value>hadoopmnmaster:8030</value>
+<name>yarn.resourcemanager.scheduler.address</name>
+<value>hadoopmnmaster:8030</value>
 </property>
 <property>
-          <name>yarn.resourcemanager.address</name>
-          <value>hadoopmnmaster:8050</value>
+<name>yarn.resourcemanager.address</name>
+<value>hadoopmnmaster:8050</value>
 </property>
 
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 sudo rm -rf /usr/local/hadoop/hadoop_data
 
@@ -55,65 +62,27 @@ sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/datanode
 sudo chown -R ali:ali /usr/local/hadoop
 
 
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 #now shutdown the ubuntu
 #and get a clone and create two slaves
 
-------------------------------------------------------------------------------------
-
-#run master nood 
-
-sudo gedit /usr/local/hadoop/etc/hadoop/masters
-# add this to file
-
-hadoopmnmaster
-------------------------------------------------------------------------------------
-sudo gedit /usr/local/hadoop/etc/hadoop/slaves
-
-#remove localhost and add 
-
-hadoopmnslave1
-hadoopmnslave2
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 
-sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
-
-change
-
-<property>
-          <name>dfs.datanode.data.dir</name>
-          <value>file:/usr/local/hadoop/hadoop_store/hdfs/datanode</value>
-</property>
-
-to
-
-<property>
-          <name>dfs.namenode.name.dir</name>
-          <value>file:/usr/local/hadoop/hadoop_store/hdfs/namenode</value>
-</property>
-
-------------------------------------------------------------------------------------
-
-           sudo rm -rf /usr/local/hadoop/hadoop_data
-
-           sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
-
-          sudo chown -R ali:ali /usr/local/hadoop
-          
-          in this step we will shutdown master node.
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
 
 in this step we will change the ip of each slave and its hostname.
 
 for slave 1
 
-sudo  gedit /etc/hostname 
- hadoopmnslave1
+sudo gedit /etc/hostname 
 
-------------------------------------------------------------------------------------
+hadoopmnslave1
+
+--------------------------------------------------------------------------------
+
 
 sudo gedit /etc/network/interfaces
 
@@ -129,16 +98,17 @@ iface eth1 inet dhcp
 
 sudo reboot
 
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 for slave 2
 
-sudo  gedit /etc/hostname 
- hadoopmnslave2
+sudo gedit /etc/hostname 
+hadoopmnslave2
 
-------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 sudo gedit /etc/network/interfaces
 
@@ -156,13 +126,62 @@ sudo reboot
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
-Run master node  and run following commands
+Run master node and run following commands
 
 
-          $ hadoop namenode -format
+#run master nood 
 
-          $ start-all.sh
+sudo gedit /etc/hostname
+
+hadoopmnmaster
+
+sudo gedit /usr/local/hadoop/etc/hadoop/masters
+# add this to file
+
+hadoopmnmaster
+--------------------------------------------------------------------------------
+sudo gedit /usr/local/hadoop/etc/hadoop/slaves
+
+#remove localhost and add 
+
+hadoopmnslave1
+hadoopmnslave2
+--------------------------------------------------------------------------------
+
+
+sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+
+change
+
+<property>
+<name>dfs.datanode.data.dir</name>
+<value>file:/usr/local/hadoop/hadoop_store/hdfs/datanode</value>
+</property>
+
+to
+
+<property>
+<name>dfs.namenode.name.dir</name>
+<value>file:/usr/local/hadoop/hadoop_store/hdfs/namenode</value>
+</property>
+
+--------------------------------------------------------------------------------
+
+sudo rm -rf /usr/local/hadoop/hadoop_data
+
+sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
+
+sudo chown -R ali:ali /usr/local/hadoop
+
+#in this step we will shutdown master node.
+
+
+
+
+
+
+$ hadoop namenode -format
+
+$ start-all.sh
 
 jps
-
-
