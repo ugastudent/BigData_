@@ -99,7 +99,7 @@ to
 
            sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
 
-          sudo chown -R chaal:chaal /usr/local/hadoop
+          sudo chown -R ali:ali /usr/local/hadoop
           
           in this step we will shutdown master node.
 ------------------------------------------------------------------------------------
