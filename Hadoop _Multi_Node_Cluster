@@ -2,7 +2,7 @@ sudo gedit /etc/hosts
 192.168.56.10 hadoopmnmaster
 192.168.56.11 hadoopmnslave1
 192.168.56.12 hadoopmnslave2
-192.168.56.13 hadoopmnslave3
+
 
 
 sudo gedit /etc/hostname
@@ -15,7 +15,7 @@ sudo gedit core-site.xml
 replace localhost as hadoopmnmaster
 
 
-
+------------------------------------------------------------------------------------
 sudo gedit hdfs-site.xml
 
 remove this part
@@ -27,7 +27,7 @@ and replace 1 with 3
 
 
 
-
+------------------------------------------------------------------------------------
 sudo gedit yarn-site.xml
 
 # add these  lines to configuration section
@@ -45,12 +45,7 @@ sudo gedit yarn-site.xml
           <value>hadoopmnmaster:8050</value>
 </property>
 
-
-
-
-
-
-
+------------------------------------------------------------------------------------
 
 sudo rm -rf /usr/local/hadoop/hadoop_data
 
@@ -60,26 +55,27 @@ sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/datanode
 sudo chown -R ali:ali /usr/local/hadoop
 
 
+------------------------------------------------------------------------------------
+#now shutdown the ubuntu
+#and get a clone and create two slaves
 
-now shutdown the ubuntu
-and get a clone and create a slave
+------------------------------------------------------------------------------------
 
-
-
-master nood
+#run master nood 
 
 sudo gedit /usr/local/hadoop/etc/hadoop/masters
+# add this to file
 
 hadoopmnmaster
-
+------------------------------------------------------------------------------------
 sudo gedit /usr/local/hadoop/etc/hadoop/slaves
 
-remove localhost and add 
+#remove localhost and add 
 
 hadoopmnslave1
 hadoopmnslave2
 hadoopmnslave3
-
+------------------------------------------------------------------------------------
 
 
 sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
@@ -98,31 +94,28 @@ to
           <value>file:/usr/local/hadoop/hadoop_store/hdfs/namenode</value>
 </property>
 
+------------------------------------------------------------------------------------
 
+           sudo rm -rf /usr/local/hadoop/hadoop_data
 
-          $ sudo rm -rf /usr/local/hadoop/hadoop_data
+           sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
 
-          $ sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
+          sudo chown -R chaal:chaal /usr/local/hadoop
+          
+          in this step we will shutdown master node.
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
-          $ sudo chown -R chaal:chaal /usr/local/hadoop
+in this step we will change the ip of each slave and its hostname.
 
-          $ hadoop namenode -format
+for slave 1
 
-          $ start-all.sh
-
-jps
-
-
-
-
-at the end edit  gedit /etc/hostname 
-hostnames are 
+sudo  gedit /etc/hostname 
  hadoopmnslave1
- hadoopmnslave2
- hadoopmnslave3
 
+------------------------------------------------------------------------------------
 
- of 3 slaves master = 11 slave1=12 ...
 sudo gedit /etc/network/interfaces
 
 add this lines
@@ -133,5 +126,44 @@ address 192.168.56.11
 netmask 255.255.255.0
 auto eth1
 iface eth1 inet dhcp
+
+
+sudo reboot
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+for slave 2
+
+sudo  gedit /etc/hostname 
+ hadoopmnslave2
+
+------------------------------------------------------------------------------------
+
+sudo gedit /etc/network/interfaces
+
+add this lines
+
+auto eth0
+iface eth0 inet static
+address 192.168.56.12
+netmask 255.255.255.0
+auto eth1
+iface eth1 inet dhcp
+
+sudo reboot
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+Run master node  and run following commands
+
+
+          $ hadoop namenode -format
+
+          $ start-all.sh
+
+jps
 
 
