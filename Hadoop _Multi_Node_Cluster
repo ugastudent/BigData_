@@ -64,7 +64,7 @@ sudo chown -R ali:ali /usr/local/hadoop
 
 --------------------------------------------------------------------------------
 #now shutdown the ubuntu
-#and get a clone and create two slaves
+#and get a clone and create two slaves and one master
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
