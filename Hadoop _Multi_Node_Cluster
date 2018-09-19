@@ -30,17 +30,19 @@ and replace 1 with 3
 
 sudo gedit yarn-site.xml
 
+# add these  lines to configuration section
+
 <property>
-<name>yarn.resourcemanager.resource-tracker.address</name>
-<value>hadoopmnmaster:8025</value>
+          <name>yarn.resourcemanager.resource-tracker.address</name>
+          <value>hadoopmnmaster:8025</value>
 </property>
 <property>
-<name>yarn.resourcemanager.scheduler.address</name>
-<value>hadoopmnmaster:8030</value>
+          <name>yarn.resourcemanager.scheduler.address</name>
+          <value>hadoopmnmaster:8030</value>
 </property>
 <property>
-<name>yarn.resourcemanager.address</name>
-<value>hadoopmnmaster:8050</value>
+          <name>yarn.resourcemanager.address</name>
+          <value>hadoopmnmaster:8050</value>
 </property>
 
 
@@ -85,15 +87,15 @@ sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
 change
 
 <property>
-<name>dfs.datanode.data.dir</name>
-<value>file:/usr/local/hadoop/hadoop_store/hdfs/datanode</value>
+          <name>dfs.datanode.data.dir</name>
+          <value>file:/usr/local/hadoop/hadoop_store/hdfs/datanode</value>
 </property>
 
 to
 
 <property>
-<name>dfs.namenode.name.dir</name>
-<value>file:/usr/local/hadoop/hadoop_store/hdfs/namenode</value>
+          <name>dfs.namenode.name.dir</name>
+          <value>file:/usr/local/hadoop/hadoop_store/hdfs/namenode</value>
 </property>
 
 
